@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/estilo.css">
+    <title>ACT 8</title>
+</head>
+<body>
+    <header>
+        <h1>
+			<a href="index.html">Gimnasio- Fatima Monserrat Velazquez Zarate</a>
+		</h1>
+    </header>
+    <section id="main">
+        <article>
+            <table>
+                <tr>
+                    <th colspan="4">Productos: {{ SumarProductos }}</h4></th>
+                    </tr>
+                    <tr v-for="(producto,index) in productos" :class="{fondo:producto.cantidad == 0}">
+                    <td>
+                        <button @click="producto.cantidad++">+</button>
+                        <input type="text" v-model.number="producto.cantidad">
+                        <button :disabled="producto.cantidad == 0" @click="producto.cantidad--">-</button>
+                    </td>
+                        <td>{{producto.nombre}}</td>
+                        <td v-if="producto.cantidad>0">${{producto.preciounitario}}</td>
+                        <td v-if="producto.cantidad>0">${{ montoPro(index) }}</td>
+                        <td colspan="2" class="dosColumnas" :class="{texto:producto.cantidad == 0}" v-else>Sin stock</td>
+                    </tr>
+                    <tr>
+                    <!--Título-->
+                    <td colspan="3" id="titulos">
+                        <h4>Subtotal</h4>
+                        <h4>Iva:</h4>
+                        <h4>Total:</h4>
+                    </td>
+                    <!--Cantidad a interpolar-->
+                    <td id="totales">
+                        <h4>${{ calculoSubtotal}}</h4>
+                        <h4>${{ calculoIva }}</h4>
+                        <h4>${{ calculoTotal }}</h4>
+                    </td>
+                </tr>
+            </table>
+        </article>
+        <fieldset class="col-6">
+            <legend>Nuevo Producto</legend>
+            Nombre: <input type="text" v-model="nuevoPro">
+            Cantidad: <input type="number" v-model.number="nuevaCantidad">
+            Precio: <input type="number" v-model.number="nuevoPrecio">
+            <button @click="agregar()">Agregar</button>
+        </fieldset>
+    </section>
+
+    <script src="js/vue.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
